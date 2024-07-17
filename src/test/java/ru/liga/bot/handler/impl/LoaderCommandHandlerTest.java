@@ -10,7 +10,7 @@ import ru.liga.bot.mapper.UpdateMapper;
 import ru.liga.bot.service.MessageService;
 import ru.liga.bot.service.impl.BotTruckLoaderServiceImpl;
 import ru.liga.bot.type.BotCommandType;
-import ru.liga.bot.type.BotMessagesType;
+import ru.liga.bot.type.BotMessageType;
 import ru.liga.truck.entity.Truck;
 
 import java.util.List;
@@ -58,6 +58,6 @@ public class LoaderCommandHandlerTest {
 
         String result = loaderCommandHandler.createMessageForUserCommand(updateMessage, BotCommandType.DEFAULT);
 
-        assertThat(result).isEqualTo(BotMessagesType.LOADER_WRONG_MESSAGE_FORMAT.getText());
+        assertThat(result).isEqualTo(BotMessageType.LOADER_WRONG_MESSAGE_FORMAT.getText());
     }
 }

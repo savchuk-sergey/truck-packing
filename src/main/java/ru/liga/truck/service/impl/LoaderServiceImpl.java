@@ -1,7 +1,7 @@
 package ru.liga.truck.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.liga.cargo.entity.Cargo;
 import ru.liga.cargo.service.CargoReader;
@@ -16,13 +16,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class LoaderServiceImpl implements LoaderService {
     private final CargoReader stringCargoReader;
-
-    @Autowired
-    public LoaderServiceImpl(CargoReader stringCargoReader) {
-        this.stringCargoReader = stringCargoReader;
-    }
 
     public List<Truck> getLoadedTrucksListFromTxtFile(String rawCargos, int maxTruckNumber, TruckLoaderType truckLoaderType) {
         List<Cargo> cargos = stringCargoReader.read(rawCargos);

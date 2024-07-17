@@ -1,5 +1,6 @@
 package ru.liga.truck.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.truck.validator.TruckValidator;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Builder
 @Slf4j
 public class Truck {
     private final List<List<Character>> fullness;

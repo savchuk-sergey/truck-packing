@@ -1,5 +1,6 @@
 package ru.liga.bot.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import ru.liga.bot.entity.dto.CargoTypeBotDto;
@@ -10,6 +11,7 @@ import ru.liga.bot.type.BotCommandType;
 import java.util.List;
 
 @Component
+@Slf4j
 public class MessageServiceImpl implements MessageService {
     public static final int MAX_NAME_LENGTH = 50;
     public static final int MAX_ID_ROW_WIDTH = 10;
@@ -64,6 +66,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public SendMessage createNewBotMessage(String message, Long chatId) {
+        log.debug("message: {}", message);
         SendMessage sendMessage = SendMessage.builder()
                 .chatId(chatId.toString())
                 .text(message)

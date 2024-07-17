@@ -12,7 +12,7 @@ import java.util.List;
 @Slf4j
 public class StringCargoReader implements CargoReader {
     public List<Cargo> read(String rawCargos) {
-        log.trace("read - rawCargos: " + rawCargos);
+        log.debug("read - rawCargos: " + rawCargos);
         String[] rawCargosSplit = rawCargos.split("\n");
         List<List<Character>> cargoSizes = new ArrayList<>();
         List<Cargo> cargos = new ArrayList<>();
@@ -34,9 +34,11 @@ public class StringCargoReader implements CargoReader {
     }
 
     private Cargo getCargoFromList(List<List<Character>> sizes) {
-        log.trace("getCargoFromList - sizes: " + sizes);
         char title = sizes.get(0).get(0);
 
-        return new Cargo(title, sizes);
+        return Cargo.builder()
+                .title(title)
+                .size(sizes)
+                .build();
     }
 }

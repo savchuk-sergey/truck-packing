@@ -29,7 +29,7 @@ public class BotCargoTypeServiceImplTest {
     private CargoTypeBotMapper cargoTypeBotMapper;
 
     @InjectMocks
-    private BotCargoTypeServiceImpl botCargoTypeService;
+    private BotCargoTypeStateServiceImpl botCargoTypeService;
 
     private CargoTypeBotDto cargoTypeBotDto;
     private CargoTypeDto cargoTypeDto;

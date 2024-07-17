@@ -2,7 +2,7 @@ package ru.liga.truck.controller;
 
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,15 +20,11 @@ import ru.liga.truck.service.TruckTypeService;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/truck-types")
 public class TruckTypeController {
 
     private final TruckTypeService truckTypeService;
-
-    @Autowired
-    public TruckTypeController(TruckTypeService truckTypeService) {
-        this.truckTypeService = truckTypeService;
-    }
 
     @GetMapping
     public ResponseEntity<List<TruckTypeDto>> getAllTruckTypes() {

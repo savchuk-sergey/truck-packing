@@ -23,7 +23,7 @@ public class SimpleTruckLoader implements TruckLoader {
      */
     @Override
     public List<Truck> createLoadedTrucks(List<Cargo> cargos, int height, int width, int maxTruckNumber) throws TruckNumberExceededException {
-        log.debug("placeCargo - cargo: {}", cargos);
+        log.debug("createLoadedTrucks - cargo: {}", cargos);
         List<Truck> trucks = new ArrayList<>();
 
         for (Cargo cargo : cargos) {
@@ -34,7 +34,11 @@ public class SimpleTruckLoader implements TruckLoader {
             log.trace("cargo: {}", cargo);
 
             List<List<Character>> size = cargo.getSize();
-            Truck truck = new Truck(height, width);
+            Truck truck = Truck.builder()
+                    .height(height)
+                    .width(width)
+                    .fullness(new ArrayList<>())
+                    .build();
 
             for (int i = 0; i < size.size(); i++) {
                 for (int j = 0; j < size.get(i).size(); j++) {

@@ -1,14 +1,13 @@
 package ru.liga.bot.handler.impl;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.liga.bot.handler.CommandHandler;
 import ru.liga.bot.type.BotCommandType;
+import ru.liga.bot.type.BotMessageType;
 
 @Component
-@Qualifier("defaultCommandHandler")
 public class DefaultCommandHandler implements CommandHandler {
     public String createMessageForUserCommand(String updateMessage, BotCommandType botCommandType) {
-        return null;
+        return String.format(BotMessageType.WRONG_COMMAND.getText(), botCommandType);
     }
 }

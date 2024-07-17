@@ -8,7 +8,6 @@ import ru.liga.truck.entity.dto.TruckTypeDto;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TruckTypeBotMapperTest {
-
     private final TruckTypeBotMapper mapper = Mappers.getMapper(TruckTypeBotMapper.class);
 
     @Test

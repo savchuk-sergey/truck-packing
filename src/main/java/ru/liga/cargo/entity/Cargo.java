@@ -1,5 +1,6 @@
 package ru.liga.cargo.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,6 +8,7 @@ import java.util.List;
 
 @Slf4j
 @Getter
+@Builder
 public class Cargo {
     private final Character title;
     private final List<List<Character>> size;
@@ -25,11 +27,6 @@ public class Cargo {
     public List<List<Character>> getSize() {
         log.trace("getSize: {}", size);
         return size;
-    }
-
-    public Character getVolume() {
-        log.trace("getVolume: {}", title);
-        return title;
     }
 
     public int getHeight() {

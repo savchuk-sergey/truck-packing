@@ -3,7 +3,7 @@ package ru.liga.bot.type;
 import lombok.Getter;
 
 @Getter
-public enum BotMessagesType {
+public enum BotMessageType {
     CARGO_TYPE_ADDED("Тип груза был успешно добавлен"),
     TRUCK_TYPE_ADDED("Тип кузова был успешно добавлен"),
     CARGO_TYPE_DELETED("Тип груза был успешно удалён"),
@@ -17,11 +17,22 @@ public enum BotMessagesType {
     LOADER_WRONG_MESSAGE_FORMAT("Некорректный формат команды для типа кузова"),
     COMMANDS_LIST("Доступные команды:\n %s"),
     WRONG_COMMAND("Некорректная команда: %s"),
-    ERROR("Ошибка: %s");
+    ERROR("Ошибка: %s"),
+    CARGO_TYPE_PROVIDE_ID("Введите id груза:"),
+    CARGO_TYPE_PROVIDE_NAME("Введите название груза:"),
+    CARGO_TYPE_PROVIDE_REPRESENTATION("Введите представление груза:"),
+    TRUCK_TYPE_PROVIDE_ID("Введите id грузовика:"),
+    TRUCK_TYPE_PROVIDE_NAME("Введите название грузовика:"),
+    TRUCK_TYPE_PROVIDE_HEIGHT("Введите высоту грузовика:"),
+    TRUCK_TYPE_PROVIDE_WIDTH("Введите ширину грузовика:"),
+    LOADER_PROVIDE_TRUCK_TYPE("Введите тип грузовика:"),
+    LOADER_PROVIDE_TRUCK_NUMBER("Введите максимальное количество грузовиков:"),
+    LOADER_PROVIDE_TYPE("Введите название алгоритма погрузки:"),
+    LOADER_PROVIDE_CARGOS("Введите название грузов в следующем формате:Торшер,Велосипед");
 
     private final String text;
 
-    BotMessagesType(String text) {
+    BotMessageType(String text) {
         this.text = text;
     }
 }

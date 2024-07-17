@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.liga.bot.service.BotStartService;
 import ru.liga.bot.type.BotCommandType;
-import ru.liga.bot.type.BotMessagesType;
+import ru.liga.bot.type.BotMessageType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -32,6 +32,6 @@ public class StartCommandHandlerTest {
     @Test
     public void createMessageForUserCommand_WrongCommandType_ReturnsWrongMessageFormat() {
         String result = startCommandHandler.createMessageForUserCommand("some update message", BotCommandType.DEFAULT);
-        assertThat(result).isEqualTo(BotMessagesType.CARGO_WRONG_TYPE_MESSAGE_FORMAT.getText());
+        assertThat(result).isEqualTo(BotMessageType.CARGO_WRONG_TYPE_MESSAGE_FORMAT.getText());
     }
 }

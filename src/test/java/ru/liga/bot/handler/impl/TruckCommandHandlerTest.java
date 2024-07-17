@@ -7,10 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.liga.bot.entity.dto.TruckTypeBotDto;
 import ru.liga.bot.mapper.UpdateMapper;
-import ru.liga.bot.service.BotTruckTypeService;
 import ru.liga.bot.service.impl.MessageServiceImpl;
 import ru.liga.bot.type.BotCommandType;
-import ru.liga.bot.type.BotMessagesType;
+import ru.liga.bot.type.BotMessageType;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class TruckCommandHandlerTest {
 
         String result = truckCommandHandler.createMessageForUserCommand(updateMessage, BotCommandType.ADD_TRUCK_TYPE);
 
-        assertThat(result).isEqualTo(BotMessagesType.TRUCK_TYPE_ADDED.getText());
+        assertThat(result).isEqualTo(BotMessageType.TRUCK_TYPE_ADDED.getText());
     }
 
     @Test
@@ -48,7 +47,7 @@ public class TruckCommandHandlerTest {
         String updateMessage = "some update message";
         String result = truckCommandHandler.createMessageForUserCommand(updateMessage, BotCommandType.DEFAULT);
 
-        assertThat(result).isEqualTo(BotMessagesType.TRUCK_WRONG_TYPE_MESSAGE_FORMAT.getText());
+        assertThat(result).isEqualTo(BotMessageType.TRUCK_WRONG_TYPE_MESSAGE_FORMAT.getText());
     }
 
     @Test

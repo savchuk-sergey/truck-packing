@@ -1,53 +1,39 @@
 package ru.liga.bot.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import ru.liga.bot.entity.dto.LoaderBotDto;
-import ru.liga.bot.service.BotTruckLoaderService;
-import ru.liga.cargo.entity.Cargo;
-import ru.liga.cargo.entity.CargoType;
-import ru.liga.cargo.mapper.CargoTypeMapper;
-import ru.liga.cargo.service.CargoTypeService;
-import ru.liga.truck.entity.Truck;
-import ru.liga.truck.entity.TruckType;
-import ru.liga.truck.mapper.TruckTypeMapper;
-import ru.liga.truck.service.TruckLoader;
-import ru.liga.truck.service.TruckTypeService;
-import ru.liga.truck.type.TruckLoaderType;
-
-import java.util.List;
+import ru.liga.bot.service.BotStateService;
+import ru.liga.bot.type.BotCommandType;
+import ru.liga.statemachine.service.StateMachineService;
+import ru.liga.statemachine.type.Event;
+import ru.liga.statemachine.type.MessageKey;
+import ru.liga.statemachine.type.Variable;
 
 @Component
-public class BotTruckLoaderServiceImpl implements BotTruckLoaderService {
-    private final CargoTypeMapper cargoTypeMapper;
-    private final TruckTypeService truckTypeService;
-    private final CargoTypeService cargoTypeService;
-    private final TruckTypeMapper truckTypeMapper;
+@RequiredArgsConstructor
+@Slf4j
+public class BotTruckLoaderServiceImpl implements BotStateService {
+    private final StateMachineService loaderStateService;
 
-    @Autowired
-    public BotTruckLoaderServiceImpl(CargoTypeMapper cargoTypeMapper, TruckTypeService truckTypeService, CargoTypeService cargoTypeService, TruckTypeMapper truckTypeMapper) {
-        this.cargoTypeMapper = cargoTypeMapper;
-        this.truckTypeService = truckTypeService;
-        this.cargoTypeService = cargoTypeService;
-        this.truckTypeMapper = truckTypeMapper;
+    public void goToNextStage(String updateMessage, BotCommandType botCommandType) {
+        log.debug("updateMessage: {}, botCommandType: {}", updateMessage, botCommandType);
+        if (!isCommandStarted()) {
+            start(botCommandType);
+            return;
+        }
+        loaderStateService.moveToNextStateWithMessage(MessageKey.DATA, updateMessage);
     }
 
-    public List<Truck> createLoadedTrucks(LoaderBotDto loaderBotDto) {
-        TruckLoader truckLoader = TruckLoaderType.findByTypeName(loaderBotDto.getAlgorithmType().toUpperCase());
+    public String getBotResponseMessage() {
+        return loaderStateService.getStringVariableValue(Variable.BOT_RESPONSE_MESSAGE);
+    }
 
-        List<CargoType> cargoTypes = cargoTypeService.findByNameIn(loaderBotDto.getCargoNames());
+    private void start(BotCommandType botCommandType) {
+        loaderStateService.sendEvent(Event.getEventByCommand(botCommandType));
+    }
 
-        List<Cargo> cargos = cargoTypes.stream()
-                .map(cargoTypeMapper::cargoTypeToCargo)
-                .toList();
-
-        TruckType truckType = truckTypeMapper.toEntity(truckTypeService.findByName(loaderBotDto.getTruckName()));
-
-        return truckLoader.createLoadedTrucks(
-                cargos,
-                truckType.getHeight(),
-                truckType.getWidth(),
-                loaderBotDto.getTruckNumber()
-        );
+    private boolean isCommandStarted() {
+        return loaderStateService.getCurrentState().getBotCommandType().getType().equals(BotCommandType.Type.LOADER);
     }
 }

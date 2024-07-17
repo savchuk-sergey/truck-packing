@@ -31,7 +31,10 @@ public class SortTruckLoader implements TruckLoader {
         List<Cargo> sortedCargos = cargos.stream()
                 .sorted(Comparator.comparing(Cargo::getWidth))
                 .toList();
-        Truck truck = new Truck(height, width);
+        Truck truck = Truck.builder()
+                .height(height)
+                .width(width)
+                .build();
 
         for (Cargo cargo : sortedCargos) {
             if (maxTruckNumber > 0 && trucks.size() > maxTruckNumber) {
@@ -43,7 +46,10 @@ public class SortTruckLoader implements TruckLoader {
 
             if (truckFreeHeight < cargo.getHeight()) {
                 trucks.add(truck);
-                truck = new Truck(Constants.Truck.HEIGHT, Constants.Truck.WIDTH);
+                truck = Truck.builder()
+                        .height(Constants.Truck.HEIGHT)
+                        .width(Constants.Truck.WIDTH)
+                        .build();
             }
 
             for (int i = 0; i < size.size(); i++) {

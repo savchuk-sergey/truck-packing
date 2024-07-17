@@ -17,7 +17,9 @@ public enum BotCommandType {
     EDIT_TRUCK_TYPE(Type.TRUCK, "/edit_truck_type"),
     START(Type.START, "/start"),
     HELP(Type.HELP, "/help"),
-    DEFAULT(Type.DEFAULT, "");
+    DEFAULT(Type.DEFAULT, ""),
+    CANCEL(Type.CANCEL, "/cancel");
+
     private final String command;
     private final Type type;
 
@@ -30,7 +32,7 @@ public enum BotCommandType {
         return Arrays.stream(BotCommandType.values())
                 .filter(botCommandType -> botCommandType.command.equals(command))
                 .findFirst()
-                .orElseThrow();
+                .orElse(null);
     }
 
     public enum Type {
@@ -39,6 +41,8 @@ public enum BotCommandType {
         LOADER,
         DEFAULT,
         START,
-        HELP
+        HELP,
+        CANCEL,
+        IN_PROGRESS
     }
 }

@@ -21,7 +21,7 @@ public class BotTruckTypeServiceImplTest {
     private TruckTypeBotMapper truckTypeBotMapper;
 
     @InjectMocks
-    private BotTruckTypeServiceImpl botTruckTypeService;
+    private BotTruckTypeStateServiceImpl botTruckTypeService;
 
     @Test
     public void save_ValidInput_CallsTruckTypeServiceSave() {
