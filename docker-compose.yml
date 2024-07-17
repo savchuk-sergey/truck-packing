@@ -11,22 +11,5 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  spring_app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: spring_app
-    depends_on:
-      - postgres
-    environment:
-      DB_URL: jdbc:postgresql://postgres:5432/postgres
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DRIVERCLASSNAME: org.postgresql.Driver
-      BOT_TOKEN: ${BOT_TOKEN}
-      BOT_NAME: ${BOT_NAME}
-    ports:
-      - "8080:8080"
-
 volumes:
   postgres_data:
